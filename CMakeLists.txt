@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 # Define the Key Derivation Function (KDF) project
 project(libkdf
-        VERSION 1.0.8.0
+        VERSION 1.0.9.0
         DESCRIPTION "Key Derivation Function (KDF) Library"
         LANGUAGES CXX)
 
@@ -21,10 +21,11 @@ option(libkdf_INSTALL "Install the KDF Library" ON)
 # Determine whether clang-tidy will be performed
 option(libkdf_CLANG_TIDY "Use clang-tidy to perform linting during build" OFF)
 
+# Ensure testing is enabled to surface tests in dependencies
+include(CTest)
+
 add_subdirectory(dependencies)
 add_subdirectory(src)
-
-include(CTest)
 
 if(BUILD_TESTING AND libkdf_BUILD_TESTS)
     add_subdirectory(test)
