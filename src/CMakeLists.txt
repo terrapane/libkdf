@@ -1,3 +1,6 @@
+# Include standard installation directory variables
+include(GNUInstallDirs)
+
 # Create the KDF library
 add_library(kdf STATIC ackdf.cpp pbkdf1.cpp pbkdf2.cpp hkdf.cpp)
 add_library(Terra::kdf ALIAS kdf)
@@ -7,7 +10,8 @@ target_include_directories(kdf
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 # Specify the C++ standard to observe
 set_target_properties(kdf
@@ -41,7 +45,6 @@ target_link_libraries(kdf
 
 # Install target and associated include files
 if(libkdf_INSTALL)
-    include(GNUInstallDirs)
     install(TARGETS kdf EXPORT kdfTargets ARCHIVE)
     install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ TYPE INCLUDE)
     install(EXPORT kdfTargets

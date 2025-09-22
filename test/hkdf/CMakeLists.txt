@@ -1,4 +1,4 @@
-# Create the test excutable
+# Create the test executable
 add_executable(test_hkdf test_hkdf.cpp)
 
 # Link to the required libraries
@@ -15,7 +15,7 @@ set_target_properties(test_hkdf
 target_compile_options(test_hkdf
     PRIVATE
         $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>: -Wpedantic -Wextra -Wall>
-        $<$<CXX_COMPILER_ID:MSVC>: >)
+        $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX>)
 
 # Ensure CTest can find the test
 add_test(NAME test_hkdf
