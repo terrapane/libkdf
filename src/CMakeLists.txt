@@ -7,8 +7,6 @@ add_library(Terra::kdf ALIAS kdf)
 
 # Make project include directory available to external projects
 target_include_directories(kdf
-    PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
