@@ -59,7 +59,7 @@ namespace Terra::Crypto::KDF
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed the hashing algorithm.
+ *          the output from the employed hashing algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
@@ -103,7 +103,7 @@ std::span<std::uint8_t> ACKDF(Hashing::HashAlgorithm algorithm,
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed the hashing algorithm.
+ *          the output from the employed hashing algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
@@ -150,7 +150,7 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed the hashing algorithm.
+ *          of the output from the employed hashing algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
@@ -192,7 +192,7 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed the hashing algorithm * (2^32 - 1).
+ *          of the output from the employed hashing algorithm * (2^32 - 1).
  *
  *  Returns:
  *      A span over the same octets as key if successful.  If there is an error,

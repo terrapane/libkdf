@@ -51,7 +51,7 @@ namespace Terra::Crypto::KDF
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed the hashing algorithm.
+ *          of the output from the employed hashing algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
