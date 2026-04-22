@@ -230,8 +230,8 @@ STF_TEST(PBKDF2, RFC5869_A3_1)
     STF_ASSERT_EQ(expected, key);
 }
 
-// Tests from RFC 5869 (again -- leaving out salt parameter entirely)
-STF_TEST(PBKDF2, RFC5869_A3_2)
+// Tests from RFC 5869
+STF_TEST(PBKDF2, RFC5869_A3_2) // Same as above, but leaving out salt parameter
 {
     const std::vector<std::uint8_t> expected =
     {
