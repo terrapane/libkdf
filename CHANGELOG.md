@@ -1,5 +1,10 @@
 # Change Log
 
+v1.0.12 (in progress)
+
+- Updated APIs for consistency and to make it possible to not pass the optional
+  salt parameter to HKDF Extract function.
+
 v1.0.11
 
 - Updated dependencies

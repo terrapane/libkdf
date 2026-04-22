@@ -192,7 +192,7 @@ STF_TEST(PBKDF2, RFC5869_A2)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A3)
+STF_TEST(PBKDF2, RFC5869_A3_1)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -221,6 +221,44 @@ STF_TEST(PBKDF2, RFC5869_A3)
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
+
+    // Call Expand
+    auto result = hkdf.Expand(info, key);
+
+    STF_ASSERT_EQ(key.data(), result.data());
+    STF_ASSERT_EQ(key.size(), result.size());
+    STF_ASSERT_EQ(expected, key);
+}
+
+// Tests from RFC 5869 (again -- leaving out salt parameter entirely)
+STF_TEST(PBKDF2, RFC5869_A3_2)
+{
+    const std::vector<std::uint8_t> expected =
+    {
+        0x8d, 0xa4, 0xe7, 0x75, 0xa5, 0x63, 0xc1, 0x8f,
+        0x71, 0x5f, 0x80, 0x2a, 0x06, 0x3c, 0x5a, 0x31,
+        0xb8, 0xa1, 0x1f, 0x5c, 0x5e, 0xe1, 0x87, 0x9e,
+        0xc3, 0x45, 0x4e, 0x5f, 0x3c, 0x73, 0x8d, 0x2d,
+        0x9d, 0x20, 0x13, 0x95, 0xfa, 0xa4, 0xb6, 0x1a,
+        0x96, 0xc8
+    };
+    const std::vector<std::uint8_t> ikm =
+    {
+        0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
+        0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b,
+        0x0b, 0x0b, 0x0b, 0x0b, 0x0b, 0x0b
+    };
+    const std::vector<std::uint8_t> info = {};
+    std::vector<std::uint8_t> key(42);
+
+    // Basic sanity test to ensure expected / key align
+    STF_ASSERT_EQ(key.size(), expected.size());
+
+    // Create the HKDF object
+    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256);
+
+    // Call Extract() without a salt parameter
+    hkdf.Extract(ikm);
 
     // Call Expand
     auto result = hkdf.Expand(info, key);

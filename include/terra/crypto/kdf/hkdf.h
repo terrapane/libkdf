@@ -48,12 +48,12 @@ class HKDF
     public:
         HKDF(Hashing::HashAlgorithm algorithm);
         HKDF(Hashing::HashAlgorithm algorithm,
-             const std::span<const std::uint8_t> key,
-             const std::span<const std::uint8_t> salt);
+             const std::span<const std::uint8_t> ikm,
+             const std::span<const std::uint8_t> salt = {});
         ~HKDF();
 
         void Extract(const std::span<const std::uint8_t> ikm,
-                     const std::span<const std::uint8_t> salt);
+                     const std::span<const std::uint8_t> salt = {});
         std::span<std::uint8_t> Expand(std::span<const std::uint8_t> info,
                                        std::span<std::uint8_t> key);
         std::span<std::uint8_t> Expand(std::span<const char> info,

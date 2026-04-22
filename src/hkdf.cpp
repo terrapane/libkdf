@@ -58,8 +58,8 @@ HKDF::HKDF(Hashing::HashAlgorithm algorithm) :
  *      algorithm [in]
  *          The underlying hashing algorithm to employ.
  *
- *      key [in]
- *          The Input Keying Material.
+ *      ikm [in]
+ *          The Input Keying Material (IKM) used to key the HMAC-KDF.
  *
  *      salt [in]
  *          Optional salt value to utilize.
@@ -71,11 +71,11 @@ HKDF::HKDF(Hashing::HashAlgorithm algorithm) :
  *      None.
  */
 HKDF::HKDF(Hashing::HashAlgorithm algorithm,
-           const std::span<const std::uint8_t> key,
+           const std::span<const std::uint8_t> ikm,
            const std::span<const std::uint8_t> salt) :
     HKDF(algorithm)
 {
-    Extract(key, salt);
+    Extract(ikm, salt);
 }
 
 /*
