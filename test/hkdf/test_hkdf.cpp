@@ -19,6 +19,7 @@
 #include <vector>
 #include <ostream>
 #include <sstream>
+#include <ranges>
 #include <terra/crypto/kdf/hkdf.h>
 #include <terra/stf/adapters/integral_vector.h>
 #include <terra/stf/stf.h>
@@ -383,6 +384,15 @@ STF_TEST(PBKDF2, RFC5869_A5)
 
     // Call Expand
     auto result = hkdf.Expand(info, key);
+
+    STF_ASSERT_EQ(key.data(), result.data());
+    STF_ASSERT_EQ(key.size(), result.size());
+    STF_ASSERT_EQ(expected, key);
+
+    // Call Expand again (repeated calls with the same "info" should yield the
+    // same output key)
+    std::ranges::fill(key, 0x00);
+    result = hkdf.Expand(info, key);
 
     STF_ASSERT_EQ(key.data(), result.data());
     STF_ASSERT_EQ(key.size(), result.size());
