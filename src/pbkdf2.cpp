@@ -37,7 +37,7 @@ namespace Terra::Crypto::KDF
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.  This will be transformed into
+ *          The hash algorithm to employ.  This will be transformed into
  *          HMAC_{algorithm}.
  *
  *      password [in]
@@ -47,13 +47,13 @@ namespace Terra::Crypto::KDF
  *          A salt value to be used by this algorithm.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.
+ *          The number of times the hash function should be invoked.
  *          This must be at least 1.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed hashing algorithm * (2^32 - 1).
+ *          of the output from the employed hash algorithm * (2^32 - 1).
  *
  *  Returns:
  *      A span over the same octets as key if successful.  If there is an error,
@@ -81,7 +81,7 @@ std::span<std::uint8_t> PBKDF2(Hashing::HashAlgorithm algorithm,
     // Create the PRF (HMAC_{algorithm})
     Hashing::HMAC hmac(algorithm, password);
 
-    // Get the length of the hashing function output
+    // Get the length of the hash function output
     std::size_t hash_length = hmac.GetHMACLength();
 
     // Create a vector for the hash result (used repeatedly)

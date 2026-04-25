@@ -14,8 +14,8 @@
  *      (KDF) procedures defined in RFC 5869.
  *
  *      There are two forms of the constructor.  The first takes only a
- *      hashing algorithm, while the second accepts an optional salt value,
- *      "Input Keying Material" (IKM), and hashing algorithm.
+ *      hash algorithm, while the second accepts an optional salt value,
+ *      "Input Keying Material" (IKM), and hash algorithm.
  *
  *      With the first form, the user must call the Extract() function later
  *      with (optional) salt value and "Input Keying Material" (IKM).  Then,

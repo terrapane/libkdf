@@ -23,7 +23,7 @@ if(libkdf_BUILD_TESTS)
     FetchContent_MakeAvailable(stf)
 endif()
 
-# Fetch the Hashing library
+# Fetch the Hash library
 FetchContent_Declare(libhash
     GIT_REPOSITORY ${TERRAPANE_SOURCE_URI}/libhash.git
     GIT_TAG        v1.0.11

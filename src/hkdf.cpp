@@ -32,7 +32,7 @@ namespace Terra::Crypto::KDF
  *
  *  Parameters:
  *      algorithm [in]
- *          The underlying hashing algorithm to employ.
+ *          The underlying hash algorithm to employ.
  *
  *  Returns:
  *      Nothing.
@@ -56,7 +56,7 @@ HKDF::HKDF(Hashing::HashAlgorithm algorithm) :
  *
  *  Parameters:
  *      algorithm [in]
- *          The underlying hashing algorithm to employ.
+ *          The underlying hash algorithm to employ.
  *
  *      ikm [in]
  *          The Input Keying Material (IKM) used to key the HMAC-KDF.
@@ -175,7 +175,7 @@ void HKDF::Extract(const std::span<const std::uint8_t> ikm,
  *          The length of the output keying material to generate is taken
  *          from the length of this span.  The span may be in the range of
  *          zero to 255 * HashLen.  HashLen is the length of the underlying
- *          hashing function's output.  In the case of SHA-1, for example,
+ *          hash function's output.  In the case of SHA-1, for example,
  *          that is 20.  In the case of SHA-256, that is 32.  One may call
  *          GetHMACLength() to determine the output length of the
  *          underlying hash function.
@@ -267,7 +267,7 @@ std::span<std::uint8_t> HKDF::Expand(std::span<const std::uint8_t> info,
  *          The length of the output keying material to generate is taken
  *          from the length of this span.  The span may be in the range of
  *          zero to 255 * HashLen.  HashLen is the length of the underlying
- *          hashing function's output.  In the case of SHA-1, for example,
+ *          hash function's output.  In the case of SHA-1, for example,
  *          that is 20.  In the case of SHA-256, that is 32.  One may call
  *          GetHMACLength() to determine the output length of the
  *          underlying hash function.

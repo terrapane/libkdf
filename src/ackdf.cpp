@@ -35,7 +35,7 @@ namespace Terra::Crypto::KDF
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.  The hashing algorithm used by
+ *          The hash algorithm to employ.  The hash algorithm used by
  *          AES Crypt version 0, 1, and 2 was SHA-256.
  *
  *      password [in]
@@ -51,19 +51,19 @@ namespace Terra::Crypto::KDF
  *          message digest.  Thus, the salt may be up to 32 octets.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.  The
+ *          The number of times the hash function should be invoked.  The
  *          value used by AES Crypt up to version 2 was 8192.  This must be 1
  *          or greater.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed hashing algorithm.
+ *          the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
  *      set according to the actual key length, which will be the length of
- *      the output from the hashing algorithm.  An exception will be thrown
+ *      the output from the hash algorithm.  An exception will be thrown
  *      if the salt length is too large.
  *
  *  Comments:
@@ -140,12 +140,12 @@ std::span<std::uint8_t> ACKDF(Hashing::HashAlgorithm algorithm,
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed hashing algorithm.
+ *          the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
  *      set according to the actual key length, which will be the length of
- *      the output from the hashing algorithm.  An exception will be thrown
+ *      the output from the hash algorithm.  An exception will be thrown
  *      if the salt length is too large.
  *
  *  Comments:

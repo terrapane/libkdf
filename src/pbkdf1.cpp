@@ -36,7 +36,7 @@ namespace Terra::Crypto::KDF
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.
+ *          The hash algorithm to employ.
  *
  *      password [in]
  *          The password to be used as input into the KDF.
@@ -45,13 +45,13 @@ namespace Terra::Crypto::KDF
  *          A salt value to be used by this algorithm.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.
+ *          The number of times the hash function should be invoked.
  *          This must be at least 1.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed hashing algorithm.
+ *          of the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
@@ -74,7 +74,7 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
     // Ensure the iterations is not zero
     if (iterations == 0) throw KDFException("Iteration count cannot be zero");
 
-    // Create the hashing object
+    // Create the hash object
     Hashing::HashPointer hash = Hashing::CreateHashObject(algorithm);
     std::size_t hash_length = hash->GetDigestLength();
 

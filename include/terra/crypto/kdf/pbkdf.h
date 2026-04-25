@@ -36,7 +36,7 @@ namespace Terra::Crypto::KDF
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.  The hashing algorithm used by
+ *          The hash algorithm to employ.  The hash algorithm used by
  *          AES Crypt version 0, 1, and 2 was SHA-256.
  *
  *      password [in]
@@ -52,19 +52,19 @@ namespace Terra::Crypto::KDF
  *          message digest.  Thus, the salt may be up to 32 octets.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.  The
+ *          The number of times the hash function should be invoked.  The
  *          value used by AES Crypt up to version 2 was 8192.  This must be 1
  *          or greater.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed hashing algorithm.
+ *          the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
  *      set according to the actual key length, which will be the length of
- *      the output from the hashing algorithm.  An exception will be thrown
+ *      the output from the hash algorithm.  An exception will be thrown
  *      if the salt length is too large.
  *
  *  Comments:
@@ -103,12 +103,12 @@ std::span<std::uint8_t> ACKDF(Hashing::HashAlgorithm algorithm,
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be at least as large as the length of
- *          the output from the employed hashing algorithm.
+ *          the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
  *      set according to the actual key length, which will be the length of
- *      the output from the hashing algorithm.  An exception will be thrown
+ *      the output from the hash algorithm.  An exception will be thrown
  *      if the salt length is too large.
  *
  *  Comments:
@@ -135,7 +135,7 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.
+ *          The hash algorithm to employ.
  *
  *      password [in]
  *          The password to be used as input into the KDF.
@@ -144,13 +144,13 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
  *          A salt value to be used by this algorithm.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.
+ *          The number of times the hash function should be invoked.
  *          This must be at least 1.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed hashing algorithm.
+ *          of the output from the employed hash algorithm.
  *
  *  Returns:
  *      A span over the same span as the key parameter and having the length
@@ -176,7 +176,7 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
  *
  *  Parameters:
  *      algorithm [in]
- *          The hashing algorithm to employ.  This will be transformed into
+ *          The hash algorithm to employ.  This will be transformed into
  *          HMAC_{algorithm}.
  *
  *      password [in]
@@ -186,13 +186,13 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
  *          A salt value to be used by this algorithm.
  *
  *      iterations [in]
- *          The number of times the hashing function should be invoked.
+ *          The number of times the hash function should be invoked.
  *          This must be at least 1.
  *
  *      key [out]
  *          This is the span of octets into which the derived key is written.
  *          The length of the span must be any value between 0 and the length
- *          of the output from the employed hashing algorithm * (2^32 - 1).
+ *          of the output from the employed hash algorithm * (2^32 - 1).
  *
  *  Returns:
  *      A span over the same octets as key if successful.  If there is an error,
