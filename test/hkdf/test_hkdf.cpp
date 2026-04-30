@@ -391,7 +391,7 @@ STF_TEST(PBKDF2, RFC5869_A5)
 
     // Call Expand again (repeated calls with the same "info" should yield the
     // same output key)
-    key = {};
+    std::ranges::fill(key, static_cast<std::uint8_t>(0));
     result = hkdf.Expand(info, key);
 
     STF_ASSERT_EQ(key.data(), result.data());
