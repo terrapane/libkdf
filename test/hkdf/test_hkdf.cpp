@@ -27,7 +27,7 @@
 using namespace Terra::Crypto;
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A1)
+STF_TEST(HKDF, RFC5869_A1)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -74,7 +74,7 @@ STF_TEST(PBKDF2, RFC5869_A1)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A1a)
+STF_TEST(HKDF, RFC5869_A1a)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -118,7 +118,7 @@ STF_TEST(PBKDF2, RFC5869_A1a)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A2)
+STF_TEST(HKDF, RFC5869_A2)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -193,7 +193,7 @@ STF_TEST(PBKDF2, RFC5869_A2)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A3_1)
+STF_TEST(HKDF, RFC5869_A3_1)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -232,7 +232,7 @@ STF_TEST(PBKDF2, RFC5869_A3_1)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A3_2) // Same as above, but leaving out salt parameter
+STF_TEST(HKDF, RFC5869_A3_2) // Same as above, but leaving out salt parameter
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -270,7 +270,7 @@ STF_TEST(PBKDF2, RFC5869_A3_2) // Same as above, but leaving out salt parameter
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A4)
+STF_TEST(HKDF, RFC5869_A4)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -316,7 +316,7 @@ STF_TEST(PBKDF2, RFC5869_A4)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A5)
+STF_TEST(HKDF, RFC5869_A5)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -400,7 +400,7 @@ STF_TEST(PBKDF2, RFC5869_A5)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A6)
+STF_TEST(HKDF, RFC5869_A6)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -439,7 +439,7 @@ STF_TEST(PBKDF2, RFC5869_A6)
 }
 
 // Tests from RFC 5869
-STF_TEST(PBKDF2, RFC5869_A7)
+STF_TEST(HKDF, RFC5869_A7)
 {
     const std::vector<std::uint8_t> expected =
     {
@@ -477,14 +477,14 @@ STF_TEST(PBKDF2, RFC5869_A7)
     STF_ASSERT_EQ(expected, key);
 }
 
-STF_TEST(PBKDF2, ObjectCopy)
+STF_TEST(HKDF, ObjectCopy)
 {
     KDF::HKDF hkdf1(Hashing::HashAlgorithm::SHA256);
     KDF::HKDF hkdf2(hkdf1);
     KDF::HKDF hkdf3 = hkdf1;
 }
 
-STF_TEST(PBKDF2, MoveCopy)
+STF_TEST(HKDF, MoveCopy)
 {
     KDF::HKDF hkdf1(Hashing::HashAlgorithm::SHA256);
     KDF::HKDF hkdf2(std::move(hkdf1));
