@@ -20,6 +20,7 @@
 #include <ostream>
 #include <sstream>
 #include <ranges>
+#include <algorithm>
 #include <terra/crypto/kdf/hkdf.h>
 #include <terra/stf/adapters/integral_vector.h>
 #include <terra/stf/stf.h>
