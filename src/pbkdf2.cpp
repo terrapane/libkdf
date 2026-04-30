@@ -20,6 +20,8 @@
 #include <cstdint>
 #include <vector>
 #include <limits>
+#include <ranges>
+#include <algorithm>
 #include <terra/secutil/secure_vector.h>
 #include <terra/crypto/hash/hmac.h>
 #include <terra/crypto/hash/hash.h>
@@ -106,8 +108,8 @@ std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
         throw KDFException("Requested key length is too large");
     }
 
-    // Get a pointer to the start of the span
-    std::uint8_t *p = key.data();
+    // Get a iterator over the key
+    auto p = key.begin();
 
     // Iterate over possible blocks
     for (std::size_t block = 1; block <= blocks; block++)
@@ -126,7 +128,7 @@ std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
         hmac.Reset();
 
         // Store the result in T_i
-        std::memcpy(T_i.data(), hash_result.data(), hash_length);
+        std::ranges::copy(hash_result, T_i.begin());
 
         // Perform subsequent iterations (2..iterations) to compute U_k
         for (std::size_t iter = 2; iter <= iterations; iter++)
@@ -146,14 +148,14 @@ std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
         // At this point T_i == U_xor
         if (block < blocks)
         {
-            // Copy all of T_i into key
-            std::memcpy(p, T_i.data(), hash_length);
-            p += hash_length;
+            // Copy all of T_i into key at position p
+            std::ranges::copy(T_i, p);
+            p += static_cast<std::span<uint8_t>::difference_type>(hash_length);
         }
         else
         {
             // Copy "remainder" bytes for the last block
-            std::memcpy(p, T_i.data(), remainder);
+            std::ranges::copy(std::span(T_i).first(remainder), p);
         }
     }
 
@@ -161,7 +163,6 @@ std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
     SecUtil::SecureErase(hash_length);
     SecUtil::SecureErase(blocks);
     SecUtil::SecureErase(remainder);
-    SecUtil::SecureErase(p);
 
     return key;
 }

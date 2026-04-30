@@ -6,6 +6,7 @@ v1.1.0
   salt parameter to HKDF Extract function.
 - Added additional test logic
 - Updated dependencies
+- Removed pointer arithmetic, migrate to std::span
 
 v1.0.11
 

@@ -208,8 +208,8 @@ std::span<std::uint8_t> HKDF::Expand(std::span<const std::uint8_t> info,
     // Ensure the requested key length is not excessive (RFC 5869 Section 2.3)
     if (blocks > 255) throw KDFException("Requested key length is excessive");
 
-    // Get a pointer to the start of the span
-    std::uint8_t *p = key.data();
+    // Get a interator over the key
+    auto p = key.begin();
 
     // Produce they key HMAC(PRK, T_[i-1] || info || index)
     for (std::size_t block = 1; block <= blocks; block++)
@@ -226,14 +226,14 @@ std::span<std::uint8_t> HKDF::Expand(std::span<const std::uint8_t> info,
         // Now concatenate T_i into the key span
         if (block < blocks)
         {
-            // Copy all of T_i into key
-            std::memcpy(p, T_i.data(), hash_length);
-            p += hash_length;
+            // Copy all of T_i into key at position p
+            std::ranges::copy(T_i, p);
+            p += static_cast<std::span<uint8_t>::difference_type>(hash_length);
         }
         else
         {
             // Copy "remainder" bytes for the last block
-            std::memcpy(p, T_i.data(), remainder);
+            std::ranges::copy(std::span(T_i).first(remainder), p);
         }
     }
 
@@ -241,7 +241,6 @@ std::span<std::uint8_t> HKDF::Expand(std::span<const std::uint8_t> info,
     SecUtil::SecureErase(i);
     SecUtil::SecureErase(blocks);
     SecUtil::SecureErase(remainder);
-    SecUtil::SecureErase(p);
 
     return key;
 }
