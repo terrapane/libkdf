@@ -60,7 +60,7 @@ STF_TEST(HKDF, RFC5869_A1)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA256);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -107,7 +107,7 @@ STF_TEST(HKDF, RFC5869_A1a)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object (calling Extract)
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256, ikm, salt);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA256, ikm, salt);
 
     // Call Expand
     auto result = hkdf.Expand(info, key);
@@ -179,7 +179,7 @@ STF_TEST(HKDF, RFC5869_A2)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA256);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -218,7 +218,7 @@ STF_TEST(HKDF, RFC5869_A3_1)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA256);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -256,7 +256,7 @@ STF_TEST(HKDF, RFC5869_A3_2) // Same as above, but leaving out salt parameter
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA256);
 
     // Call Extract() without a salt parameter
     hkdf.Extract(ikm);
@@ -302,7 +302,7 @@ STF_TEST(HKDF, RFC5869_A4)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA1);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA1);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -377,7 +377,7 @@ STF_TEST(HKDF, RFC5869_A5)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA1);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA1);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -425,7 +425,7 @@ STF_TEST(HKDF, RFC5869_A6)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA1);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA1);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -464,7 +464,7 @@ STF_TEST(HKDF, RFC5869_A7)
     STF_ASSERT_EQ(key.size(), expected.size());
 
     // Create the HKDF object
-    KDF::HKDF hkdf(Hashing::HashAlgorithm::SHA1);
+    KDF::HKDF hkdf(Hash::HashAlgorithm::SHA1);
 
     // Call Extract()
     hkdf.Extract(ikm, salt);
@@ -479,13 +479,13 @@ STF_TEST(HKDF, RFC5869_A7)
 
 STF_TEST(HKDF, ObjectCopy)
 {
-    KDF::HKDF hkdf1(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf1(Hash::HashAlgorithm::SHA256);
     KDF::HKDF hkdf2(hkdf1);
     KDF::HKDF hkdf3 = hkdf1;
 }
 
 STF_TEST(HKDF, MoveCopy)
 {
-    KDF::HKDF hkdf1(Hashing::HashAlgorithm::SHA256);
+    KDF::HKDF hkdf1(Hash::HashAlgorithm::SHA256);
     KDF::HKDF hkdf2(std::move(hkdf1));
 }

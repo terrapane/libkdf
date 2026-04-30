@@ -37,7 +37,7 @@
 #include <span>
 #include <cstdint>
 #include <cstddef>
-#include <terra/crypto/hashing/hmac.h>
+#include <terra/crypto/hash/hmac.h>
 #include <terra/crypto/kdf/kdf_exception.h>
 
 namespace Terra::Crypto::KDF
@@ -46,8 +46,8 @@ namespace Terra::Crypto::KDF
 class HKDF
 {
     public:
-        HKDF(Hashing::HashAlgorithm algorithm);
-        HKDF(Hashing::HashAlgorithm algorithm,
+        HKDF(Hash::HashAlgorithm algorithm);
+        HKDF(Hash::HashAlgorithm algorithm,
              const std::span<const std::uint8_t> ikm,
              const std::span<const std::uint8_t> salt = {});
         ~HKDF();
@@ -65,7 +65,7 @@ class HKDF
         }
 
     protected:
-        Hashing::HMAC hmac;
+        Hash::HMAC hmac;
         std::size_t hash_length;
         bool keyed;
 };

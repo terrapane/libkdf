@@ -21,7 +21,7 @@
 #include <span>
 #include <cstdint>
 #include <cstddef>
-#include <terra/crypto/hashing/hash.h>
+#include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/kdf_exception.h>
 
 namespace Terra::Crypto::KDF
@@ -74,7 +74,7 @@ namespace Terra::Crypto::KDF
  *      the previous hash iteration.  Also, the order in which the password
  *      and salt are given in the initial iteration is reversed.
  */
-std::span<std::uint8_t> ACKDF(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
                               const std::span<const std::uint8_t> password,
                               const std::span<const std::uint8_t> salt,
                               std::size_t iterations,
@@ -161,7 +161,7 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
  *  Comments:
  *      None.
  */
-std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
                                const std::span<const std::uint8_t> password,
                                const std::span<const std::uint8_t> salt,
                                std::size_t iterations,
@@ -201,7 +201,7 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
  *  Comments:
  *      None.
  */
-std::span<std::uint8_t> PBKDF2(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
                                const std::span<const std::uint8_t> password,
                                const std::span<const std::uint8_t> salt,
                                std::size_t iterations,

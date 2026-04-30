@@ -21,7 +21,7 @@
 #include <vector>
 #include <terra/secutil/secure_vector.h>
 #include <terra/secutil/secure_erase.h>
-#include <terra/crypto/hashing/hash.h>
+#include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
 
 namespace Terra::Crypto::KDF
@@ -62,7 +62,7 @@ namespace Terra::Crypto::KDF
  *  Comments:
  *      None.
  */
-std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
                                const std::span<const std::uint8_t> password,
                                const std::span<const std::uint8_t> salt,
                                std::size_t iterations,
@@ -75,7 +75,7 @@ std::span<std::uint8_t> PBKDF1(Hashing::HashAlgorithm algorithm,
     if (iterations == 0) throw KDFException("Iteration count cannot be zero");
 
     // Create the hash object
-    Hashing::HashPointer hash = Hashing::CreateHashObject(algorithm);
+    Hash::HashPointer hash = Hash::CreateHashObject(algorithm);
     std::size_t hash_length = hash->GetDigestLength();
 
     // Create a vector for the hash result (used in each iteration)

@@ -36,7 +36,7 @@ STF_TEST(PBKDF1, PBKDF1_0)
 
     // Derive the key
     auto result = KDF::PBKDF1(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<std::uint8_t *>(password.data()), password.length()},
         {reinterpret_cast<std::uint8_t *>(salt.data()), salt.length()},
         1024,
@@ -62,7 +62,7 @@ STF_TEST(PBKDF1, PBKDF1_1)
 
     // Derive the key
     auto result = KDF::PBKDF1(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<std::uint8_t *>(password.data()), password.length()},
         {reinterpret_cast<std::uint8_t *>(salt.data()), salt.length()},
         1024,
@@ -87,7 +87,7 @@ STF_TEST(PBKDF1, PBKDF1_2)
 
     // Derive the key
     auto result = KDF::PBKDF1(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<std::uint8_t *>(password.data()), password.length()},
         {reinterpret_cast<std::uint8_t *>(salt.data()), salt.length()},
         1024,
@@ -112,7 +112,7 @@ STF_TEST(PBKDF1, PBKDF1_3)
 
     // Derive the key
     auto result = KDF::PBKDF1(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<std::uint8_t *>(password.data()), password.length()},
         {reinterpret_cast<std::uint8_t *>(salt.data()), salt.length()},
         1024,
@@ -128,31 +128,31 @@ STF_TEST(PBKDF1, PBKDF1_3)
 STF_TEST(PBKDF1, PBKDF1_4)
 {
     std::vector<
-        std::pair<Hashing::HashAlgorithm, std::vector<std::uint8_t>>> expected
+        std::pair<Hash::HashAlgorithm, std::vector<std::uint8_t>>> expected
     {
         {
-            Hashing::HashAlgorithm::SHA1,
+            Hash::HashAlgorithm::SHA1,
             {
                 0x55, 0xce, 0x9e, 0x9a, 0xa9, 0xbf, 0x73, 0x3f,
                 0x19, 0x3e, 0x66, 0x62, 0x03, 0x65, 0xfe, 0x0e
             }
         },
         {
-            Hashing::HashAlgorithm::SHA256,
+            Hash::HashAlgorithm::SHA256,
             {
                 0x2e, 0x46, 0x00, 0x82, 0xf6, 0x00, 0x2d, 0x37,
                 0x70, 0x42, 0xbb, 0xfd, 0x7c, 0x3f, 0xcf, 0x61
             }
         },
         {
-            Hashing::HashAlgorithm::SHA384,
+            Hash::HashAlgorithm::SHA384,
             {
                 0xbc, 0x3d, 0x24, 0x1b, 0xd9, 0x97, 0x5b, 0xab,
                 0xb7, 0xbb, 0x7f, 0xd0, 0xc8, 0x43, 0xc9, 0xe0
             }
         },
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             {
                 0x2b, 0x87, 0x5a, 0x1a, 0x16, 0x3a, 0xde, 0x05,
                 0xf7, 0x88, 0xba, 0x38, 0x60, 0x33, 0xc2, 0x0a

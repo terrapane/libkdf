@@ -30,10 +30,10 @@ using namespace Terra::Crypto;
 STF_TEST(PBKDF2, VariousHashFunctions)
 {
     const std::vector<
-        std::pair<Hashing::HashAlgorithm, std::vector<std::uint8_t>>> expected
+        std::pair<Hash::HashAlgorithm, std::vector<std::uint8_t>>> expected
     {
         {
-            Hashing::HashAlgorithm::SHA1,
+            Hash::HashAlgorithm::SHA1,
             {
                 0xca, 0x95, 0xcb, 0xa5, 0x37, 0x3c, 0xa0, 0xb8,
                 0x6a, 0xd1, 0xdd, 0x7b, 0x31, 0xfb, 0x51, 0xd7,
@@ -42,7 +42,7 @@ STF_TEST(PBKDF2, VariousHashFunctions)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA256,
+            Hash::HashAlgorithm::SHA256,
             {
                 0xbf, 0x3d, 0x09, 0xd4, 0x29, 0xfb, 0xf7, 0x1b,
                 0xbb, 0x38, 0x4a, 0x64, 0x21, 0x44, 0x7d, 0xa3,
@@ -51,7 +51,7 @@ STF_TEST(PBKDF2, VariousHashFunctions)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA384,
+            Hash::HashAlgorithm::SHA384,
             {
                 0xf4, 0xe9, 0xe3, 0x37, 0x7b, 0xfd, 0xb3, 0x76,
                 0x95, 0xb4, 0x1d, 0x16, 0x3b, 0x67, 0xf6, 0xa8,
@@ -60,7 +60,7 @@ STF_TEST(PBKDF2, VariousHashFunctions)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             {
                 0xff, 0x05, 0x5f, 0x4a, 0x1f, 0x3b, 0x9b, 0x70,
                 0xde, 0x87, 0xec, 0xd9, 0x42, 0xc7, 0xae, 0xd9,
@@ -115,7 +115,7 @@ STF_TEST(PBKDF2, Wikipedia)
 
     // Derive the key
     auto result =
-        KDF::PBKDF2(Hashing::HashAlgorithm::SHA1,
+        KDF::PBKDF2(Hash::HashAlgorithm::SHA1,
                     {reinterpret_cast<const std::uint8_t *>(password.data()),
                      password.length()},
                     salt,
@@ -142,8 +142,9 @@ STF_TEST(PBKDF2, RFC6070_1)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
-        {reinterpret_cast<const std::uint8_t *>(password.data()), password.length()},
+        Hash::HashAlgorithm::SHA1,
+        {reinterpret_cast<const std::uint8_t *>(password.data()),
+         password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
         1,
         key);
@@ -168,7 +169,7 @@ STF_TEST(PBKDF2, RFC6070_2)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
+        Hash::HashAlgorithm::SHA1,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -195,7 +196,7 @@ STF_TEST(PBKDF2, RFC6070_3)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
+        Hash::HashAlgorithm::SHA1,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -222,7 +223,7 @@ STF_TEST(PBKDF2, RFC6070_4)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
+        Hash::HashAlgorithm::SHA1,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -250,7 +251,7 @@ STF_TEST(PBKDF2, RFC6070_5)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
+        Hash::HashAlgorithm::SHA1,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -276,8 +277,9 @@ STF_TEST(PBKDF2, RFC6070_6)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA1,
-        {reinterpret_cast<const std::uint8_t *>(password.data()), password.length()},
+        Hash::HashAlgorithm::SHA1,
+        {reinterpret_cast<const std::uint8_t *>(password.data()),
+         password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
         4096,
         key);
@@ -308,7 +310,7 @@ STF_TEST(PBKDF2, RFC6070_7)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -336,7 +338,7 @@ STF_TEST(PBKDF2, RFC6070_8)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -364,7 +366,7 @@ STF_TEST(PBKDF2, RFC6070_9)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -392,7 +394,7 @@ STF_TEST(PBKDF2, RFC6070_10)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -421,7 +423,7 @@ STF_TEST(PBKDF2, RFC6070_11)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -447,8 +449,9 @@ STF_TEST(PBKDF2, RFC6070_12)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
-        {reinterpret_cast<const std::uint8_t *>(password.data()), password.length()},
+        Hash::HashAlgorithm::SHA256,
+        {reinterpret_cast<const std::uint8_t *>(password.data()),
+         password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
         4096,
         key);
@@ -479,7 +482,7 @@ STF_TEST(PBKDF2, RFC7914_1)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -510,7 +513,7 @@ STF_TEST(PBKDF2, RFC7914_2)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA256,
+        Hash::HashAlgorithm::SHA256,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         {reinterpret_cast<const std::uint8_t *>(salt.data()), salt.length()},
@@ -526,7 +529,7 @@ STF_TEST(PBKDF2, VariousKnownResults)
 {
     struct TestParameters
     {
-        Hashing::HashAlgorithm algorithm;
+        Hash::HashAlgorithm algorithm;
         std::string password;
         std::vector<std::uint8_t> salt;
         std::size_t iterations;
@@ -536,7 +539,7 @@ STF_TEST(PBKDF2, VariousKnownResults)
     const std::vector<TestParameters> various_tests
     {
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             "TopSecret",
             {
                 's', 'a', 'l', 't'
@@ -554,7 +557,7 @@ STF_TEST(PBKDF2, VariousKnownResults)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             "TopSecret",
             {
                 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'r', 'a',
@@ -574,7 +577,7 @@ STF_TEST(PBKDF2, VariousKnownResults)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             "TopSecret",
             {
                 'T', 'h', 'i', 's', ' ', 'i', 's', ' ', 'a', ' ', 'r', 'a',
@@ -594,7 +597,7 @@ STF_TEST(PBKDF2, VariousKnownResults)
             }
         },
         {
-            Hashing::HashAlgorithm::SHA512,
+            Hash::HashAlgorithm::SHA512,
             "this is the secret password",
             {
                 's', 'a', 'l', 't'
@@ -649,7 +652,7 @@ STF_TEST(PBKDF2, ShortKeyTest)
 
     // Derive the key
     auto result = KDF::PBKDF2(
-        Hashing::HashAlgorithm::SHA512,
+        Hash::HashAlgorithm::SHA512,
         {reinterpret_cast<const std::uint8_t *>(password.data()),
          password.length()},
         salt,
@@ -662,7 +665,10 @@ STF_TEST(PBKDF2, ShortKeyTest)
 }
 
 #ifndef NDEBUG
-// Due to large iteration values, these tests are too slow to run under a debug
+// Due to large iteration values, skip these under debug builds
+STF_TEST_EXCLUDE(PBKDF2, RFC7914_2)
 STF_TEST_EXCLUDE(PBKDF2, RFC6070_4)
 STF_TEST_EXCLUDE(PBKDF2, RFC6070_10)
+STF_TEST_EXCLUDE(PBKDF2, VariousKnownResults)
+STF_TEST_EXCLUDE(PBKDF2, ShortKeyTest)
 #endif

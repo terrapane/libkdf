@@ -40,7 +40,7 @@ namespace Terra::Crypto::KDF
  *  Comments:
  *      None.
  */
-HKDF::HKDF(Hashing::HashAlgorithm algorithm) :
+HKDF::HKDF(Hash::HashAlgorithm algorithm) :
     hmac(algorithm),
     hash_length{hmac.GetHMACLength()},
     keyed{false}
@@ -70,7 +70,7 @@ HKDF::HKDF(Hashing::HashAlgorithm algorithm) :
  *  Comments:
  *      None.
  */
-HKDF::HKDF(Hashing::HashAlgorithm algorithm,
+HKDF::HKDF(Hash::HashAlgorithm algorithm,
            const std::span<const std::uint8_t> ikm,
            const std::span<const std::uint8_t> salt) :
     HKDF(algorithm)

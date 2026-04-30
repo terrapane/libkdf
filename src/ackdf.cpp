@@ -20,7 +20,7 @@
 #include <cstdint>
 #include <vector>
 #include <terra/secutil/secure_vector.h>
-#include <terra/crypto/hashing/hash.h>
+#include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
 
 namespace Terra::Crypto::KDF
@@ -73,14 +73,14 @@ namespace Terra::Crypto::KDF
  *      the previous hash iteration.  Also, the order in which the password
  *      and salt are given in the initial iteration is reversed.
  */
-std::span<std::uint8_t> ACKDF(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
                               const std::span<const std::uint8_t> password,
                               const std::span<const std::uint8_t> salt,
                               std::size_t iterations,
                               const std::span<std::uint8_t> key)
 {
     // Create the HMAC object
-    Hashing::HashPointer hash = Hashing::CreateHashObject(algorithm);
+    Hash::HashPointer hash = Hash::CreateHashObject(algorithm);
     std::size_t hash_length = hash->GetDigestLength();
 
     // Verify that the key span is sufficiently long
@@ -163,7 +163,7 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
                               const std::span<const std::uint8_t> salt,
                               const std::span<std::uint8_t> key)
 {
-    return ACKDF(Hashing::HashAlgorithm::SHA256, password, salt, 8192, key);
+    return ACKDF(Hash::HashAlgorithm::SHA256, password, salt, 8192, key);
 }
 
 } // namespace Terra::Crypto::KDF

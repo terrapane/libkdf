@@ -21,8 +21,8 @@
 #include <vector>
 #include <limits>
 #include <terra/secutil/secure_vector.h>
-#include <terra/crypto/hashing/hmac.h>
-#include <terra/crypto/hashing/hash.h>
+#include <terra/crypto/hash/hmac.h>
+#include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
 
 namespace Terra::Crypto::KDF
@@ -62,7 +62,7 @@ namespace Terra::Crypto::KDF
  *  Comments:
  *      None.
  */
-std::span<std::uint8_t> PBKDF2(Hashing::HashAlgorithm algorithm,
+std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
                                const std::span<const std::uint8_t> password,
                                const std::span<const std::uint8_t> salt,
                                std::size_t iterations,
@@ -79,7 +79,7 @@ std::span<std::uint8_t> PBKDF2(Hashing::HashAlgorithm algorithm,
     if (iterations == 0) throw KDFException("Iteration count cannot be zero");
 
     // Create the PRF (HMAC_{algorithm})
-    Hashing::HMAC hmac(algorithm, password);
+    Hash::HMAC hmac(algorithm, password);
 
     // Get the length of the hash function output
     std::size_t hash_length = hmac.GetHMACLength();
