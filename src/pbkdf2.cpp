@@ -1,7 +1,7 @@
 /*
  *  pbkdf2.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -16,16 +16,19 @@
  *      None.
  */
 
+#include <algorithm>
 #include <cstring>
 #include <cstdint>
-#include <vector>
+#include <cstddef>
 #include <limits>
-#include <ranges>
-#include <algorithm>
+#include <span>
 #include <terra/secutil/secure_vector.h>
+#include <terra/secutil/secure_erase.h>
 #include <terra/crypto/hash/hmac.h>
 #include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
+#include <terra/crypto/kdf/kdf_exception.h>
+
 
 namespace Terra::Crypto::KDF
 {
@@ -65,10 +68,10 @@ namespace Terra::Crypto::KDF
  *      None.
  */
 std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
-                               const std::span<const std::uint8_t> password,
-                               const std::span<const std::uint8_t> salt,
+                               std::span<const std::uint8_t> password,
+                               std::span<const std::uint8_t> salt,
                                std::size_t iterations,
-                               const std::span<std::uint8_t> key)
+                               std::span<std::uint8_t> key)
 {
     // Maximum number of blocks allowed by PBKDF2
     constexpr std::size_t max_blocks =
@@ -115,10 +118,10 @@ std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
     for (std::size_t block = 1; block <= blocks; block++)
     {
         // Put i into network byte order
-        int32_big_endian[0] = (block >> 24) & 0xff;
-        int32_big_endian[1] = (block >> 16) & 0xff;
-        int32_big_endian[2] = (block >>  8) & 0xff;
-        int32_big_endian[3] = (block      ) & 0xff;
+        int32_big_endian[0] = (block >> 24U) & 0xffU;
+        int32_big_endian[1] = (block >> 16U) & 0xffU;
+        int32_big_endian[2] = (block >>  8U) & 0xffU;
+        int32_big_endian[3] = (block       ) & 0xffU;
 
         // U_1 is distinct in its input
         hmac.Input(salt);

@@ -1,7 +1,7 @@
 /*
  *  pbkdf1.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -16,13 +16,16 @@
  *      None.
  */
 
+#include <algorithm>
 #include <cstring>
 #include <cstdint>
-#include <vector>
+#include <cstddef>
+#include <span>
 #include <terra/secutil/secure_vector.h>
 #include <terra/secutil/secure_erase.h>
 #include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
+#include <terra/crypto/kdf/kdf_exception.h>
 
 namespace Terra::Crypto::KDF
 {
@@ -63,10 +66,10 @@ namespace Terra::Crypto::KDF
  *      None.
  */
 std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
-                               const std::span<const std::uint8_t> password,
-                               const std::span<const std::uint8_t> salt,
+                               std::span<const std::uint8_t> password,
+                               std::span<const std::uint8_t> salt,
                                std::size_t iterations,
-                               const std::span<std::uint8_t> key)
+                               std::span<std::uint8_t> key)
 {
     // If the key span size is zero, there is no work to do
     if (key.empty()) return key.first(0);
@@ -98,7 +101,7 @@ std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
     }
 
     // Place the derived key into the output key span
-    std::size_t actual_key_length = std::min(hash_length, key.size());
+    const std::size_t actual_key_length = std::min(hash_length, key.size());
     std::memcpy(key.data(), hash_result.data(), actual_key_length);
 
     // Erase local variable

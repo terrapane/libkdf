@@ -7,6 +7,7 @@ v1.1.0
 - Added additional test logic
 - Updated dependencies
 - Removed pointer arithmetic, migrate to std::span
+- Addressed clang-tidy nits
 
 v1.0.11
 

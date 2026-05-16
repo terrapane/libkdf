@@ -1,7 +1,7 @@
 /*
  *  hkdf.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -17,9 +17,16 @@
  *      None.
  */
 
+#include <algorithm>
 #include <cstring>
+#include <cstdint>
+#include <cstddef>
+#include <span>
 #include <terra/secutil/secure_vector.h>
+#include <terra/secutil/secure_erase.h>
+#include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/hkdf.h>
+#include <terra/crypto/kdf/kdf_exception.h>
 
 namespace Terra::Crypto::KDF
 {
@@ -71,8 +78,8 @@ HKDF::HKDF(Hash::HashAlgorithm algorithm) :
  *      None.
  */
 HKDF::HKDF(Hash::HashAlgorithm algorithm,
-           const std::span<const std::uint8_t> ikm,
-           const std::span<const std::uint8_t> salt) :
+           std::span<const std::uint8_t> ikm,
+           std::span<const std::uint8_t> salt) :
     HKDF(algorithm)
 {
     Extract(ikm, salt);
@@ -120,8 +127,8 @@ HKDF::~HKDF()
  *  Comments:
  *      None.
  */
-void HKDF::Extract(const std::span<const std::uint8_t> ikm,
-                   const std::span<const std::uint8_t> salt)
+void HKDF::Extract(std::span<const std::uint8_t> ikm,
+                   std::span<const std::uint8_t> salt)
 {
     SecUtil::SecureVector<std::uint8_t> prk;
 

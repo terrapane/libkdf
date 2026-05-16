@@ -1,7 +1,7 @@
 /*
  *  hkdf.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -46,14 +46,19 @@ namespace Terra::Crypto::KDF
 class HKDF
 {
     public:
-        HKDF(Hash::HashAlgorithm algorithm);
+        explicit HKDF(Hash::HashAlgorithm algorithm);
+        HKDF(const HKDF &other) = default;
+        HKDF(HKDF &&other) = default;
         HKDF(Hash::HashAlgorithm algorithm,
-             const std::span<const std::uint8_t> ikm,
-             const std::span<const std::uint8_t> salt = {});
+             std::span<const std::uint8_t> ikm,
+             std::span<const std::uint8_t> salt = {});
         ~HKDF();
 
-        void Extract(const std::span<const std::uint8_t> ikm,
-                     const std::span<const std::uint8_t> salt = {});
+        HKDF &operator=(const HKDF &other) = default;
+        HKDF &operator=(HKDF &&other) = default;
+
+        void Extract(std::span<const std::uint8_t> ikm,
+                     std::span<const std::uint8_t> salt = {});
         std::span<std::uint8_t> Expand(std::span<const std::uint8_t> info,
                                        std::span<std::uint8_t> key);
         std::span<std::uint8_t> Expand(std::span<const char> info,

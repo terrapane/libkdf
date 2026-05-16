@@ -1,7 +1,7 @@
 /*
  *  pbkdf.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -75,10 +75,10 @@ namespace Terra::Crypto::KDF
  *      and salt are given in the initial iteration is reversed.
  */
 std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
-                              const std::span<const std::uint8_t> password,
-                              const std::span<const std::uint8_t> salt,
+                              std::span<const std::uint8_t> password,
+                              std::span<const std::uint8_t> salt,
                               std::size_t iterations,
-                              const std::span<std::uint8_t> key);
+                              std::span<std::uint8_t> key);
 
 /*
  *  ACKDF()
@@ -122,9 +122,9 @@ std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
  *      the SHA-256 algorithm with 8192 iterations, as those were the defaults
  *      employed by AES Crypt Version 0, 1, and 2.
  */
-std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
-                              const std::span<const std::uint8_t> salt,
-                              const std::span<std::uint8_t> key);
+std::span<std::uint8_t> ACKDF(std::span<const std::uint8_t> password,
+                              std::span<const std::uint8_t> salt,
+                              std::span<std::uint8_t> key);
 
 /*
  *  PBKDF1()
@@ -162,10 +162,10 @@ std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
  *      None.
  */
 std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
-                               const std::span<const std::uint8_t> password,
-                               const std::span<const std::uint8_t> salt,
+                               std::span<const std::uint8_t> password,
+                               std::span<const std::uint8_t> salt,
                                std::size_t iterations,
-                               const std::span<std::uint8_t> key);
+                               std::span<std::uint8_t> key);
 
 /*
  *  PBKDF2()
@@ -202,9 +202,9 @@ std::span<std::uint8_t> PBKDF1(Hash::HashAlgorithm algorithm,
  *      None.
  */
 std::span<std::uint8_t> PBKDF2(Hash::HashAlgorithm algorithm,
-                               const std::span<const std::uint8_t> password,
-                               const std::span<const std::uint8_t> salt,
+                               std::span<const std::uint8_t> password,
+                               std::span<const std::uint8_t> salt,
                                std::size_t iterations,
-                               const std::span<std::uint8_t> key);
+                               std::span<std::uint8_t> key);
 
 } // namespace Terra::Crypto::KDF

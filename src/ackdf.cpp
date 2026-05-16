@@ -1,7 +1,7 @@
 /*
  *  ackdf.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -18,10 +18,12 @@
 
 #include <cstring>
 #include <cstdint>
-#include <vector>
+#include <cstddef>
+#include <span>
 #include <terra/secutil/secure_vector.h>
 #include <terra/crypto/hash/hash.h>
 #include <terra/crypto/kdf/pbkdf.h>
+#include <terra/crypto/kdf/kdf_exception.h>
 
 namespace Terra::Crypto::KDF
 {
@@ -74,14 +76,14 @@ namespace Terra::Crypto::KDF
  *      and salt are given in the initial iteration is reversed.
  */
 std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
-                              const std::span<const std::uint8_t> password,
-                              const std::span<const std::uint8_t> salt,
+                              std::span<const std::uint8_t> password,
+                              std::span<const std::uint8_t> salt,
                               std::size_t iterations,
-                              const std::span<std::uint8_t> key)
+                              std::span<std::uint8_t> key)
 {
     // Create the HMAC object
     Hash::HashPointer hash = Hash::CreateHashObject(algorithm);
-    std::size_t hash_length = hash->GetDigestLength();
+    const std::size_t hash_length = hash->GetDigestLength();
 
     // Verify that the key span is sufficiently long
     if (key.size() < hash_length)
@@ -159,9 +161,9 @@ std::span<std::uint8_t> ACKDF(Hash::HashAlgorithm algorithm,
  *      the SHA-256 algorithm with 8192 iterations, as those were the defaults
  *      employed by AES Crypt Version 0, 1, and 2.
  */
-std::span<std::uint8_t> ACKDF(const std::span<const std::uint8_t> password,
-                              const std::span<const std::uint8_t> salt,
-                              const std::span<std::uint8_t> key)
+std::span<std::uint8_t> ACKDF(std::span<const std::uint8_t> password,
+                              std::span<const std::uint8_t> salt,
+                              std::span<std::uint8_t> key)
 {
     return ACKDF(Hash::HashAlgorithm::SHA256, password, salt, 8192, key);
 }
