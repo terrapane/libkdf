@@ -1,5 +1,10 @@
 # Change Log
 
+v1.1.1
+
+- Updated dependencies
+- Stricter compiler warnings
+
 v1.1.0
 
 - Updated APIs for consistency and to make it possible to not pass the optional
